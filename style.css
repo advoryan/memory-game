@@ -371,3 +371,51 @@ button:focus-visible, a:focus-visible {
   font-size: 13px;
   color: #426045;
 }
+
+.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  width: min(460px, 100% - 32px);
+  max-height: calc(100dvh - 48px);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.2666666667);
+}
+.modal::backdrop {
+  background: rgba(16, 25, 35, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-panel {
+  padding: 32px;
+}
+
+.modal-title {
+  margin: 0 0 24px;
+  font: normal 36px/1.1 Georgia, serif;
+  letter-spacing: -1px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.modal-copy {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.victory-score {
+  font: 42px Georgia, serif;
+  margin: 20px 0;
+}

@@ -1,8 +1,10 @@
 import { createGame } from './game.js';
-import { createApp, renderBoard, updateGame } from './ui.js';
+import { createApp, renderBoard, updateGame, createModal, closeModal, showVictory } from './ui.js';
+import { saveResult } from './storage.js';
 import { formatTime } from './utils.js';
 
 const elements = createApp();
+const modal = createModal();
 let startedAt = null;
 let timerId = null;
 let elapsedSeconds = 0;
@@ -36,6 +38,8 @@ const game = createGame((state, event) => {
   if (event === 'win') {
     updateTimer();
     stopTimer();
+    const saved = saveResult(state.moves);
+    showVictory(modal, state.moves, formatTime(elapsedSeconds), saved);
   }
 });
 
@@ -44,8 +48,23 @@ elements.board.addEventListener('click', (event) => {
   if (card) game.selectCard(Number(card.dataset.id));
 });
 
-elements.app.addEventListener('click', (event) => {
-  if (event.target.closest('[data-action]')?.dataset.action === 'new-game') game.startGame();
+function handleAction(event) {
+  const action = event.target.closest('[data-action]')?.dataset.action;
+  if (action === 'new-game') {
+    closeModal(modal);
+    game.startGame();
+  }
+  if (action === 'close-modal') closeModal(modal);
+}
+
+elements.app.addEventListener('click', handleAction);
+modal.addEventListener('click', handleAction);
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) closeModal(modal);
+});
+modal.addEventListener('cancel', (event) => {
+  event.preventDefault();
+  closeModal(modal);
 });
 
 game.startGame();

@@ -117,3 +117,38 @@ export function updateGame(elements, state) {
     ? 'Eight pairs. One happy memory.'
     : state.isLocked ? 'Not quite. Remember these two.' : 'Take your time. Find your pairs.';
 }
+
+export function createModal() {
+  const dialog = createElement('dialog', 'modal');
+  dialog.setAttribute('aria-labelledby', 'modal-title');
+  const panel = createElement('div', 'modal-panel');
+  dialog.append(panel);
+  document.body.append(dialog);
+  return dialog;
+}
+
+export function openModal(dialog, title, content, actions = []) {
+  const heading = createElement('h2', 'modal-title', title);
+  heading.id = 'modal-title';
+  const controls = createElement('div', 'modal-actions');
+  controls.append(...actions, createButton('Close', 'close-modal'));
+  dialog.firstElementChild.replaceChildren(heading, content, controls);
+  if (!dialog.open) dialog.showModal();
+  document.body.classList.add('modal-open');
+}
+
+export function closeModal(dialog) {
+  dialog.close();
+  document.body.classList.remove('modal-open');
+}
+
+export function showVictory(dialog, moves, time, saved) {
+  const content = createElement('div', 'victory');
+  content.append(
+    createElement('p', 'eyebrow', 'Eight pairs. Beautifully done.'),
+    createElement('p', 'victory-score', `${moves} moves`),
+    createElement('p', 'modal-copy', `All your Pepes, together at last. Finished in ${time}.`),
+  );
+  if (!saved) content.append(createElement('p', 'modal-copy', 'Browser storage is unavailable. Your result is kept for this session.'));
+  openModal(dialog, 'A good memory.', content, [createButton('New game', 'new-game', 'button button-primary')]);
+}
