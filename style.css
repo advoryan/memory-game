@@ -4,7 +4,7 @@
   color: #14202a;
   background: #e9e4db;
   font-synthesis: none;
-  --paper: #f8f5efdb;
+  --paper: #f8f5ef;
   --ink: #14202a;
   --muted: #555e59;
   --line: #d8d3c9;
@@ -336,6 +336,27 @@ button:focus-visible, a:focus-visible {
   border: 0;
 }
 
+@media (min-width: 768px) {
+  body {
+    padding-block: 16px;
+  }
+  .header {
+    padding-block: 16px;
+  }
+  .main {
+    padding-block: 16px;
+  }
+  .stats {
+    margin-bottom: 12px;
+  }
+  .board {
+    width: min(100%, 100dvh - 250px);
+    margin-inline: auto;
+  }
+  .board-hint {
+    margin-top: 12px;
+  }
+}
 @media (max-width: 480px) {
   body {
     padding: 12px;

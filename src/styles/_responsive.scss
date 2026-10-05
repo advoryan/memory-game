@@ -1,3 +1,15 @@
+@media (min-width: 768px) {
+  body { padding-block: 16px; }
+  .header { padding-block: 16px; }
+  .main { padding-block: 16px; }
+  .stats { margin-bottom: 12px; }
+  .board {
+    width: min(100%, calc(100dvh - 250px));
+    margin-inline: auto;
+  }
+  .board-hint { margin-top: 12px; }
+}
+
 @media (max-width: 480px) {
   body { padding: 12px; }
   .header { flex-direction: column; align-items: stretch; gap: 16px; padding: 20px 16px; }
