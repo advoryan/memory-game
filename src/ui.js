@@ -115,7 +115,13 @@ export function closeModal(dialog) {
 
 export function showVictory(dialog, moves, saved) {
   const content = createElement('div', 'victory');
+  const image = createElement('img', 'victory-image');
+  image.src = './assets/images/pepe-celebration.webp';
+  image.alt = 'Pepes celebrating the victory';
+  image.width = 800;
+  image.height = 450;
   content.append(
+    image,
     createElement('p', 'modal-copy', 'You found all eight pairs!'),
     createElement('p', 'victory-score', `${moves} moves`),
   );

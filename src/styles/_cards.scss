@@ -24,7 +24,7 @@
   box-shadow: 0 4px 8px #16222c24;
 }
 .card-back {
-  background: repeating-radial-gradient(ellipse at 15% 110%, transparent 0 10px, #c2b6a1 10.5px 11px, transparent 11.5px 20px), #10202b;
+  background: #1666a5 url('./assets/images/pepe-card.webp') center / cover no-repeat;
 }
 .card-front {
   transform: rotateY(-180deg);
