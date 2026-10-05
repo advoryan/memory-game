@@ -18,7 +18,7 @@ export function createApp() {
   const app = createElement('div', 'app');
   const header = createElement('header', 'header');
   const brand = createElement('div', 'brand');
-  brand.append(createElement('h1', 'title', 'Memory'), createElement('p', 'edition', 'Pepe edition'));
+  brand.append(createElement('h1', 'title', 'Memory Game'), createElement('p', 'edition', 'Pepe edition'));
   const navigation = createElement('nav', 'navigation');
   navigation.setAttribute('aria-label', 'Game controls');
   navigation.append(
