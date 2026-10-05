@@ -30,14 +30,14 @@
   transform: rotateY(-180deg);
   background: #e6e0d4;
   img { width: 76%; height: 76%; object-fit: contain; }
-  &--happy { background: #e8ebd4; }
-  &--sad { background: #dce7ec; }
-  &--birthday { background: #f5e7bd; }
-  &--worried { background: #f1d7cd; }
-  &--amazing { background: #e7dded; }
-  &--pumpkin { background: #f3d6ad; }
-  &--snow { background: #e0eeee; }
-  &--laugh { background: #e1e6ca; }
+  &--happy { background: #a3d977; }
+  &--sad { background: #83b9f4; }
+  &--birthday { background: #ffe16b; }
+  &--worried { background: #ff9191; }
+  &--amazing { background: #bb9aee; }
+  &--pumpkin { background: #ffb366; }
+  &--snow { background: #67d7d0; }
+  &--laugh { background: #f3a6d1; }
 }
 .is-open {
   .card-back { transform: rotateY(180deg); }

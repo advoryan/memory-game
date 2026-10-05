@@ -1,46 +1,19 @@
 import { createGame } from './game.js';
-import { createApp, renderBoard, updateGame, createModal, closeModal, showVictory, openModal, renderLeaderboard, renderBestResults } from './ui.js';
+import { createApp, renderBoard, updateGame, createModal, closeModal, showVictory, openModal, renderLeaderboard } from './ui.js';
 import { saveResult, loadResults } from './storage.js';
-import { formatTime } from './utils.js';
 
 const elements = createApp();
 const modal = createModal();
-let startedAt = null;
-let timerId = null;
-let elapsedSeconds = 0;
-
-function stopTimer() {
-  clearInterval(timerId);
-  timerId = null;
-}
-
-function updateTimer() {
-  elapsedSeconds = Math.floor((Date.now() - startedAt) / 1000);
-  elements.counters.time.textContent = formatTime(elapsedSeconds);
-}
-
 const game = createGame((state, event) => {
   if (event === 'start') {
-    stopTimer();
-    startedAt = null;
-    elapsedSeconds = 0;
-    elements.counters.time.textContent = '00:00';
     renderBoard(elements.board, state.cards);
-  }
-
-  if (event === 'select' && startedAt === null) {
-    startedAt = Date.now();
-    timerId = setInterval(updateTimer, 1000);
   }
 
   updateGame(elements, state);
 
   if (event === 'win') {
-    updateTimer();
-    stopTimer();
     const saved = saveResult(state.moves);
-    renderBestResults(elements.results, loadResults());
-    showVictory(modal, state.moves, formatTime(elapsedSeconds), saved);
+    showVictory(modal, state.moves, saved);
   }
 });
 
@@ -56,7 +29,7 @@ function handleAction(event) {
     game.startGame();
   }
   if (action === 'leaderboard') {
-    openModal(modal, 'Good memories.', renderLeaderboard(loadResults()));
+    openModal(modal, 'Leaderboard', renderLeaderboard(loadResults()));
   }
   if (action === 'close-modal') closeModal(modal);
 }
@@ -71,5 +44,4 @@ modal.addEventListener('cancel', (event) => {
   closeModal(modal);
 });
 
-renderBestResults(elements.results, loadResults());
 game.startGame();

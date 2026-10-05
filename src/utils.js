@@ -12,8 +12,3 @@ export function shuffle(items) {
 export function formatDate(timestamp) {
   return new Intl.DateTimeFormat('ru-RU').format(new Date(timestamp));
 }
-
-export function formatTime(seconds) {
-  const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
-  return `${minutes}:${(seconds % 60).toString().padStart(2, '0')}`;
-}
