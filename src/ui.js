@@ -76,3 +76,44 @@ export function createApp() {
   document.body.append(app);
   return { app, header, board, hint, counters, progress, results };
 }
+
+export function renderBoard(board, cards) {
+  board.replaceChildren(...cards.map(createCard));
+}
+
+function createCard(card) {
+  const button = createElement('button', 'card');
+  button.type = 'button';
+  button.dataset.id = card.id;
+  button.setAttribute('aria-label', `Card ${card.id + 1}, face down`);
+  button.setAttribute('aria-pressed', 'false');
+  const back = createElement('span', 'card-back');
+  back.setAttribute('aria-hidden', 'true');
+  const front = createElement('span', `card-front card-front--${card.image}`);
+  front.setAttribute('aria-hidden', 'true');
+  const image = createElement('img');
+  image.src = `./assets/images/pepe-${card.image}.png`;
+  image.alt = '';
+  image.draggable = false;
+  front.append(image);
+  button.append(back, front);
+  return button;
+}
+
+export function updateGame(elements, state) {
+  for (const card of state.cards) {
+    const button = elements.board.children[card.id];
+    button.classList.toggle('is-open', card.isOpen);
+    button.classList.toggle('is-matched', card.isMatched);
+    button.setAttribute('aria-pressed', String(card.isOpen));
+    button.setAttribute('aria-disabled', String(card.isOpen || state.isLocked));
+    const label = card.isOpen ? `${card.image} Pepe${card.isMatched ? ', matched' : ''}` : 'face down';
+    button.setAttribute('aria-label', `Card ${card.id + 1}, ${label}`);
+  }
+  elements.counters.moves.textContent = state.moves;
+  elements.counters.pairs.textContent = `${state.matchedPairs}/8`;
+  elements.progress.value = state.matchedPairs;
+  elements.hint.textContent = state.matchedPairs === 8
+    ? 'Eight pairs. One happy memory.'
+    : state.isLocked ? 'Not quite. Remember these two.' : 'Take your time. Find your pairs.';
+}
