@@ -1,0 +1,13 @@
+{
+  "name": "memory-game",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scss": "sass --no-source-map src/styles/main.scss style.css",
+    "scss:watch": "sass --watch --no-source-map src/styles/main.scss:style.css"
+  },
+  "devDependencies": {
+    "sass": "^1.93.2"
+  }
+}
