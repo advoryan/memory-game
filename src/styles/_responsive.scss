@@ -1,0 +1,16 @@
+@media (max-width: 480px) {
+  body { padding: 12px; }
+  .header { flex-direction: column; align-items: stretch; gap: 16px; padding: 20px 16px; }
+  .brand { text-align: center; }
+  .navigation { display: grid; grid-template-columns: 1fr 1fr; }
+  .navigation .button { padding-inline: 8px; }
+  .main { padding: 16px; }
+  .board { gap: 8px; }
+  .board-hint { font-size: 13px; }
+  .modal-panel { padding: 24px 20px; }
+  .modal-title { font-size: 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+}
