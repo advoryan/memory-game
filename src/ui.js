@@ -1,3 +1,5 @@
+import { formatDate } from './utils.js';
+
 export function createElement(tag, className = '', text = '') {
   const element = document.createElement(tag);
   if (className) element.className = className;
@@ -151,4 +153,36 @@ export function showVictory(dialog, moves, time, saved) {
   );
   if (!saved) content.append(createElement('p', 'modal-copy', 'Browser storage is unavailable. Your result is kept for this session.'));
   openModal(dialog, 'A good memory.', content, [createButton('New game', 'new-game', 'button button-primary')]);
+}
+
+export function renderLeaderboard(results) {
+  if (!results.length) return createElement('p', 'empty-results', 'No results yet.\nFinish a game to make your first memory.');
+  const table = createElement('table', 'leaderboard');
+  const caption = createElement('caption', 'visually-hidden', 'Best games, ranked by moves. Earlier games win ties.');
+  const head = createElement('thead');
+  const header = createElement('tr');
+  for (const title of ['Rank', 'Moves', 'Date']) {
+    const cell = createElement('th', '', title);
+    cell.scope = 'col';
+    header.append(cell);
+  }
+  head.append(header);
+  const body = createElement('tbody');
+  results.forEach((result, index) => {
+    const row = createElement('tr');
+    const rank = createElement('td');
+    rank.append(createElement('span', 'rank', String(index + 1)));
+    row.append(rank, createElement('td', '', String(result.moves)), createElement('td', '', formatDate(result.date)));
+    body.append(row);
+  });
+  table.append(caption, head, body);
+  return table;
+}
+
+export function renderBestResults(container, results) {
+  container.replaceChildren(
+    createElement('h2', 'results-title', 'Personal best'),
+    renderLeaderboard(results.slice(0, 5)),
+  );
+  if (results.length) container.append(createButton('View all results ↗', 'leaderboard', 'nav-button all-results'));
 }

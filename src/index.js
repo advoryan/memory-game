@@ -1,6 +1,6 @@
 import { createGame } from './game.js';
-import { createApp, renderBoard, updateGame, createModal, closeModal, showVictory } from './ui.js';
-import { saveResult } from './storage.js';
+import { createApp, renderBoard, updateGame, createModal, closeModal, showVictory, openModal, renderLeaderboard, renderBestResults } from './ui.js';
+import { saveResult, loadResults } from './storage.js';
 import { formatTime } from './utils.js';
 
 const elements = createApp();
@@ -39,6 +39,7 @@ const game = createGame((state, event) => {
     updateTimer();
     stopTimer();
     const saved = saveResult(state.moves);
+    renderBestResults(elements.results, loadResults());
     showVictory(modal, state.moves, formatTime(elapsedSeconds), saved);
   }
 });
@@ -54,6 +55,9 @@ function handleAction(event) {
     closeModal(modal);
     game.startGame();
   }
+  if (action === 'leaderboard') {
+    openModal(modal, 'Good memories.', renderLeaderboard(loadResults()));
+  }
   if (action === 'close-modal') closeModal(modal);
 }
 
@@ -67,4 +71,5 @@ modal.addEventListener('cancel', (event) => {
   closeModal(modal);
 });
 
+renderBestResults(elements.results, loadResults());
 game.startGame();

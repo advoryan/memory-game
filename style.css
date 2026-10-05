@@ -419,3 +419,68 @@ button:focus-visible, a:focus-visible {
   font: 42px Georgia, serif;
   margin: 20px 0;
 }
+
+.leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.leaderboard th, .leaderboard td {
+  padding: 12px 4px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.leaderboard th {
+  font-weight: normal;
+  font-size: 10px;
+  color: var(--muted);
+}
+.leaderboard td:last-child, .leaderboard th:last-child {
+  text-align: right;
+}
+.leaderboard tbody tr:nth-child(1) .rank {
+  background: #efc54c;
+  color: #382c07;
+}
+.leaderboard tbody tr:nth-child(2) .rank {
+  background: #bdc8ce;
+  color: #1b2a36;
+}
+.leaderboard tbody tr:nth-child(3) .rank {
+  background: #daae8c;
+  color: #3b291f;
+}
+
+.rank {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.results .leaderboard {
+  font-size: 11px;
+}
+.results .leaderboard th, .results .leaderboard td {
+  padding-block: 9px;
+}
+
+.all-results {
+  color: var(--muted);
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
